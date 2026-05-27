@@ -9,6 +9,7 @@ from motulator.drive.control._sm_observers import (
     ObserverOutputs,
     create_sensored_observer,
     create_sensorless_observer,
+    create_SpeedFluxObserver,
     create_vhz_observer,
 )
 from motulator.drive.control._sm_reference_gen import ReferenceGenerator
@@ -232,14 +233,15 @@ class FluxVectorController:
             par, alpha_psi, cfg.alpha_tau, alpha_i
         )
         assert cfg.alpha_o is not None
-        if sensorless:
-            self.observer = create_sensorless_observer(
-                par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J
-            )
-        else:
-            self.observer = create_sensored_observer(
-                par, 2 * cfg.alpha_o, cfg.k_o, cfg.k_f
-            )
+        self.observer = create_SpeedFluxObserver(par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J, sensorless)
+        # if sensorless:
+        #     self.observer = create_sensorless_observer(
+        #         par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J
+        #     )
+        # else:
+        #     self.observer = create_sensored_observer(
+        #         par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J
+        #     )
         self.sensorless = sensorless
         self.T_s = T_s
 
@@ -251,7 +253,7 @@ class FluxVectorController:
         theta_M_meas: float | None,
     ) -> ObserverOutputs:
         """Get the feedback signals with motion sensors."""
-        return self.observer.compute_output(u_s_ab, i_s_ab, w_M_meas, theta_M_meas)
+        return self.observer.compute_output(u_s_ab, i_s_ab, theta_M_meas)
 
     def compute_output(self, tau_M_ref: float, fbk: ObserverOutputs) -> References:
         """Compute references."""
