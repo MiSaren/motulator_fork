@@ -234,14 +234,6 @@ class FluxVectorController:
         )
         assert cfg.alpha_o is not None
         self.observer = create_SpeedFluxObserver(par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J, sensorless)
-        # if sensorless:
-        #     self.observer = create_sensorless_observer(
-        #         par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J
-        #     )
-        # else:
-        #     self.observer = create_sensored_observer(
-        #         par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J
-        #     )
         self.sensorless = sensorless
         self.T_s = T_s
 

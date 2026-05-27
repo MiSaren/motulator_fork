@@ -152,9 +152,6 @@ class FluxObserver:
             out.eps = err_elec / par.n_p
             out.eps_f = -ratio.real
 
-            # Angular speed of the coordinate system
-            out.w_c = out.w_m - self.k_theta * ratio.imag
-
         else:
             # Sensored mode assumes measured rotor angle, but speed is estimated
             err_elec = wrap(par.n_p * theta_M_meas - out.theta_m)
@@ -344,6 +341,7 @@ def create_sensorless_observer(
     k_f = (lambda w_m: 0) if k_f is None else k_f
 
     return SpeedFluxObserver(par, alpha_o, k_o, k_f, J, True)
+
 def create_SpeedFluxObserver(
     par: SynchronousMachinePars | SaturatedSynchronousMachinePars,
     alpha_o: float = 2 * pi * 100,
