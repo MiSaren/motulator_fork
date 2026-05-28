@@ -135,8 +135,8 @@ class FluxObserver:
             out.theta_m = self.theta_m
 
         # Current and voltage vectors in (estimated) rotor coordinates
-        out.i_s = exp(-1j * out.theta_m) * i_s_ab
-        out.u_s = exp(-1j * out.theta_m) * u_s_ab
+        out.i_s = exp(-1j * out.theta_c) * i_s_ab
+        out.u_s = exp(-1j * out.theta_c) * u_s_ab
 
         # Auxiliary flux
         out.psi_a = complex(par.aux_flux(out.i_s))
@@ -351,8 +351,9 @@ def create_SpeedFluxObserver(
     sensorless: bool = True,
 ) -> SpeedFluxObserver:
     """
-    Create a sensorless flux observer with speed estimation. If rotor angle measurement is 
-    available, the observer estimates the speed based on the angle measurement, otherwise it is estimated based on the flux estimation error.
+    Create a flux observer with a speed estimation. If rotor angle measurement is 
+    available, the observer estimates the speed is based on the angle measurement, 
+    otherwise it is estimated based on the flux estimation error.
 
     Parameters
     ----------

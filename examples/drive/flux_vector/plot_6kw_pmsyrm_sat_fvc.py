@@ -119,7 +119,7 @@ est_par = control.SaturatedSynchronousMachinePars(
     n_p=2, R_s=0.63, psi_s_dq_fcn=est_flux_map
 )
 cfg = control.FluxVectorControllerCfg(
-    i_s_max=2 * base.i, J=0.05, alpha_i=0, alpha_o=2 * np.pi * 8
+    i_s_max=2 * base.i, J=0.05, alpha_i=0, alpha_o=2 * np.pi * 8 
 )
 vector_ctrl = control.FluxVectorController(est_par, cfg, sensorless=False)
 speed_ctrl = control.SpeedController(J=0.05, alpha_s=2 * np.pi * 4)
@@ -145,8 +145,8 @@ mdl.mechanics.set_external_load_torque(lambda t: (t > 1.25) * 0.7 * nom.tau)
 # Create the simulation object, simulate, and plot the results in per-unit values.
 
 sim = model.Simulation(mdl, ctrl)
-res = sim.simulate(t_stop=1.5)
-# res = sim.simulate(t_stop=.2)
+# res = sim.simulate(t_stop=1.5)
+res = sim.simulate(t_stop=2)
 utils.plot(res, base)
 
 # %%
