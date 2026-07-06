@@ -9,7 +9,7 @@ from motulator.drive.control._sm_observers import (
     ObserverOutputs,
     create_sensored_observer,
     create_sensorless_observer,
-    create_SpeedFluxObserver,
+    create_speed_flux_observer,
     create_vhz_observer,
 )
 from motulator.drive.control._sm_reference_gen import ReferenceGenerator
@@ -233,7 +233,7 @@ class FluxVectorController:
             par, alpha_psi, cfg.alpha_tau, alpha_i
         )
         assert cfg.alpha_o is not None
-        self.observer = create_SpeedFluxObserver(par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J, sensorless)
+        self.observer = create_speed_flux_observer(par, cfg.alpha_o, cfg.k_o, cfg.k_f, cfg.J, sensorless)
         self.sensorless = sensorless
         self.T_s = T_s
 

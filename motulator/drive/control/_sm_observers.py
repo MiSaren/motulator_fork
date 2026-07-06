@@ -342,7 +342,7 @@ def create_sensorless_observer(
 
     return SpeedFluxObserver(par, alpha_o, k_o, k_f, J, True)
 
-def create_SpeedFluxObserver(
+def create_speed_flux_observer(
     par: SynchronousMachinePars | SaturatedSynchronousMachinePars,
     alpha_o: float = 2 * pi * 100,
     k_o: Callable[[float], float] | None = None,
